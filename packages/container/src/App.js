@@ -4,7 +4,7 @@ import MarketingApp from "./components/MarketingApp";
 function App() {
   return (
     <div>
-      <h1>App container!!! 😉</h1>
+      <h1>App container!!! 🤐</h1>
       <hr />
       <MarketingApp />
     </div>
