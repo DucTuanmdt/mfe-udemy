@@ -6,6 +6,7 @@ import {
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import Progress from "./components/Progress";
+import { useState } from "react";
 
 const MarketingAppLazy = lazy(() => import("./components/MarketingApp"));
 const AuthAppLazy = lazy(() => import("./components/AuthApp"));
@@ -15,14 +16,19 @@ const generateClassName = createGenerateClassName({
 });
 
 function App() {
+  const [isSignIn, setIsSignIn] = useState(false);
+  console.log("🚀 DX ~ isSignIn:", isSignIn);
+
   return (
     <StylesProvider generateClassName={generateClassName}>
       <BrowserRouter>
         <div>
-          <Header />
+          <Header isSignIn={isSignIn} onSignOut={() => setIsSignIn(false)} />
           <Suspense fallback={<Progress />}>
             <Switch>
-              <Route path="/auth" component={AuthAppLazy} />
+              <Route path="/auth">
+                <AuthAppLazy onSignIn={() => setIsSignIn(true)} />
+              </Route>
               <Route path="/" component={MarketingAppLazy} />
             </Switch>
           </Suspense>
